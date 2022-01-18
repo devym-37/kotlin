@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BmiCalculator">
         <activity
-            android:name=".ResultActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -21,6 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ResultActivity"
+            android:parentActivityName=".MainActivity"
+            />
     </application>
 
 </manifest>
