@@ -20,13 +20,13 @@ class ResultActivity : AppCompatActivity() {
         // 결과 표시
         when {
             bmi >= 35 -> resultTextView.text = "고도 비만"
-            bmi >= 30 -> resultTextView.text = "2단계 비"
+            bmi >= 30 -> resultTextView.text = "2단계 비만"
             bmi >= 25 -> resultTextView.text = "1단계 비만"
             bmi >= 23 -> resultTextView.text = "과체중"
             bmi >= 18.5 -> resultTextView.text = "정상"
             else -> resultTextView.text = "저체중"
         }
-만
+
 
         // 이미지 표시
         when {
