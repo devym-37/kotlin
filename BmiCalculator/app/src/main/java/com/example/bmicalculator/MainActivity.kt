@@ -10,6 +10,7 @@ import org.jetbrains.anko.startActivity
 // viewBinding
 
 class MainActivity : AppCompatActivity() {
+    // 저장하기
     private fun saveData(height: Int, weight: Int){
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         val editor = pref.edit()
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             .apply()
     }
 
+    // 불러오기 
     private fun loadData(){
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         val height = pref.getInt("KEY_HEIGHT", 0)
