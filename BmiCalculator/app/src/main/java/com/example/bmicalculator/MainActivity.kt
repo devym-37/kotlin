@@ -19,9 +19,24 @@ class MainActivity : AppCompatActivity() {
             .apply()
     }
 
+    private fun loadData(){
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        val height = pref.getInt("KEY_HEIGHT", 0)
+        val weight = pref.getInt("KEY_WEIGHT", 0)
+
+        if(height != 0 && weight != 0){
+            heightEditText.setText(height.toString())
+            weightEditText.setText(weight.toString())
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // 이전에 입력한 값을 읽어오기
+        loadData()
 
         resultButton.setOnClickListener {
             //  결과 버튼이 클릭되면 실행
@@ -30,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             // intent.putExtra("height", heightEditText.text.toString())
 
             // startActivity(intent)
+            saveData(heightEditText.text.toString().toInt(), weightEditText.text.toString().toInt())
 
             startActivity<ResultActivity>(
                 "weight" to weightEditText.text.toString(),
