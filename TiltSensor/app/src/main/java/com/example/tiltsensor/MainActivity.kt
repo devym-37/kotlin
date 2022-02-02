@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private val sensorManager by lazy {
         getSystemService(Context.SENSOR_SERVICE) as SensorManager
     }
+    private lateinit var tiltView: TiltView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // 화면이 꺼지지 않게 하기
@@ -26,7 +27,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        tiltView = TiltView(this)
+        setContentView(tiltView)
     }
 
     override fun onResume() {
