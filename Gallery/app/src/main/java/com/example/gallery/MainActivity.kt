@@ -8,10 +8,13 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
+import kotlin.concurrent.timer
 
 
 class MainActivity : AppCompatActivity() {
@@ -57,16 +60,33 @@ class MainActivity : AppCompatActivity() {
             null,
             null,
             MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC")
-
+        val fragments = ArrayList<Fragment>()
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 // 사진 경로 가져오기
                 val uri = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
                 Log.d("MainActivity", uri)
+                fragments.add(PhotoFragment.newInstance(uri))
             }
 
             // Cursor 객체를 더 이상 사용하지 않을 때는 close() 메서드로 닫아야 한다. 닫지 않으면 메모리 누수가 발생
             cursor.close()
+        }
+
+        // 어댑터
+        val adapter = MyPagerAdapter(supportFragmentManager)
+        adapter.updateFragments(fragments)
+        viewPaper.adapter = adapter
+
+
+        timer(period = 3000) {
+           runOnUiThread {
+               if (viewPaper.currentItem < adapter.count - 1) {
+                   viewPaper.currentItem = viewPaper.currentItem + 1
+               } else {
+                   viewPaper.currentItem = 0
+               }
+           }
         }
 
     }
